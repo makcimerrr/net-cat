@@ -103,7 +103,7 @@ func handleConnection(conn net.Conn) {
 }
 
 func getUsername(conn net.Conn) string {
-	conn.Write([]byte("[ENTER YOUR USERNAME]: "))
+	conn.Write([]byte("\x1b[35;1;4m[ENTER YOUR USERNAME]: \x1b[0m"))
 
 	scanner := bufio.NewScanner(conn)
 	if scanner.Scan() {
@@ -114,7 +114,7 @@ func getUsername(conn net.Conn) string {
 }
 
 func notifyJoin(c *client) {
-	message := fmt.Sprintf("%s has joined the chat\n", c.username)
+	message := fmt.Sprintf("\x1b[32;1m%s has joined the chat\x1b[0m\n", c.username)
 	broadcastMessage(c, message)
 	clientsMu.Lock()
 	chatHistory = append(chatHistory, message)
@@ -122,7 +122,7 @@ func notifyJoin(c *client) {
 }
 
 func notifyLeave(c *client) {
-	message := fmt.Sprintf("%s has left the chat\n", c.username)
+	message := fmt.Sprintf("\x1b[31;1m%s has left the chat\x1b[0m\n", c.username)
 	broadcastMessage(nil, message)
 	clientsMu.Lock()
 	chatHistory = append(chatHistory, message)
@@ -134,7 +134,7 @@ func sendMessage(sender *client, message string) {
 		return // Ignore empty messages
 	}
 
-	msg := fmt.Sprintf("[%s][%s]: %s\n", getTimeStamp(), sender.username, message)
+	msg := fmt.Sprintf("\x1b[36m[%s][%s]: %s\x1b[0m\n", getTimeStamp(), sender.username, message)
 	broadcastMessage(sender, msg)
 
 	clientsMu.Lock()
@@ -153,7 +153,11 @@ func sendWelcomeMessage(conn net.Conn) {
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		message := scanner.Text()
-		_, err := conn.Write([]byte(message + "\n"))
+
+		// Appliquer des séquences ANSI au message
+		formattedMessage := formatWelcomeMessage(message)
+
+		_, err := conn.Write([]byte(formattedMessage + "\n"))
 		if err != nil {
 			log.Println("Error sending welcome message:", err)
 			return
@@ -164,6 +168,19 @@ func sendWelcomeMessage(conn net.Conn) {
 		log.Println("Error reading welcome file:", err)
 		return
 	}
+}
+
+func formatWelcomeMessage(message string) string {
+	formattedMessage := message
+
+	// Remplacer [orange] et [/orange] par les séquences ANSI pour la couleur orange
+	formattedMessage = strings.ReplaceAll(formattedMessage, "[orange]", "\x1b[38;5;208m")
+	formattedMessage = strings.ReplaceAll(formattedMessage, "[/orange]", "\x1b[0m\x1b[40;1;37m")
+
+	// Appliquer la séquence ANSI pour le texte en gras et en couleur noire sur fond noir
+	formattedMessage = "\x1b[40m\x1b[1;37m" + formattedMessage + "\x1b[0m"
+
+	return formattedMessage
 }
 
 func broadcastMessage(sender *client, message string) {
@@ -187,13 +204,13 @@ func sendChatHistory(c *client) {
 		c.writer.Flush()
 	}
 
-	for _, client := range clients {
+	/* for _, client := range clients {
 		if client != c {
 			message := fmt.Sprintf("[%s] %s has joined the chat\n", getTimeStamp(), client.username)
 			c.writer.WriteString(message)
 			c.writer.Flush()
 		}
-	}
+	} */
 }
 
 func removeClient(c *client) {

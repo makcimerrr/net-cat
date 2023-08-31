@@ -10,12 +10,12 @@ Welcome to TCP-Chat!
                          :xx  x.  xxxx:  xx.  xxxxxxxx
                          :xx xxx  xxxx: xxxx  :xxxxxxx
                          'xx 'xx  xxxx:. xx'  xxxxxxxx
-                          xx ::::::xx:::::.   xxxxxxxx
-                          xx:::::.::::.:::::::xxxxxxxx
-                          :x'::::'::::':::::':xxxxxxxxx.
-                          :xx.::::::::::::'   xxxxxxxxxx
-                          :xx: '::::::::'     :xxxxxxxxxx.
-                         .xx     '::::'        'xxxxxxxxxx.
+                          xx [orange]::::::[/orange]xx[orange]:::::.[/orange]   xxxxxxxx
+                          xx[orange]:::::.::::.:::::::[/orange]xxxxxxxx
+                          :x[orange]'::::'::::':::::':[/orange]xxxxxxxxx.
+                          :xx.[orange]::::::::::::'[/orange]   xxxxxxxxxx
+                          :xx: [orange]'::::::::'[/orange]     :xxxxxxxxxx.
+                         .xx     [orange]'::::'[/orange]        'xxxxxxxxxx.
                        .xxxx                     'xxxxxxxxx.
                      .xxxx                         'xxxxxxxxx.
                    .xxxxx:                          xxxxxxxxxx.
@@ -31,16 +31,16 @@ Welcome to TCP-Chat!
           xxxxxxxx               :                      ::xxxxxxxxxxxxx:
           xxxxxxxx               :                      ::xxxxxxxxxxxxx:
           ':xxxxxx               '                      ::xxxxxxxxxxxx:'
-            .:. xx:.                                   .:xxxxxxxxxxxxx'
-          ::::::.'xx:.            :                  .:: xxxxxxxxxxx':
-  .:::::::::::::::.'xxxx.                            ::::'xxxxxxxx':::.
-  ::::::::::::::::::.'xxxxx                          :::::.'.xx.'::::::.
-  ::::::::::::::::::::.'xxxx:.                       :::::::.'':::::::::
-  ':::::::::::::::::::::.'xx:'                     .'::::::::::::::::::::..
-    :::::::::::::::::::::.'xx                    .:: :::::::::::::::::::::::
-  .:::::::::::::::::::::::. xx               .::xxxx :::::::::::::::::::::::
-  :::::::::::::::::::::::::.'xxx..        .::xxxxxxx ::::::::::::::::::::'
-  '::::::::::::::::::::::::: xxxxxxxxxxxxxxxxxxxxxxx :::::::::::::::::'
-    '::::::::::::::::::::::: xxxxxxxxxxxxxxxxxxxxxxx :::::::::::::::'
-        ':::::::::::::::::::_xxxxxx::'''::xxxxxxxxxx '::::::::::::'
-             '':.::::::::::'                        `._'::::::''
+            [orange].:.[/orange] xx:.                                   [orange].:[/orange]xxxxxxxxxxxxx'
+          [orange]::::::.[/orange]'xx:.            :                  [orange].:: [/orange]xxxxxxxxxxx'[orange]:[/orange]
+  [orange].:::::::::::::::.[/orange]'xxxx.                            [orange]::::[/orange]'xxxxxxxx'[orange]:::.[/orange]
+ [orange] ::::::::::::::::::.[/orange]'xxxxx                          [orange]:::::.[/orange]'.xx.'[orange]::::::.[/orange]
+  [orange]::::::::::::::::::::.[/orange]'xxxx:.                       [orange]:::::::.[/orange]''[orange]:::::::::[/orange]
+  [orange]':::::::::::::::::::::.[/orange]'xx:'                     .'[orange]::::::::::::::::::::..[/orange]
+  [orange]  :::::::::::::::::::::.[/orange]'xx                    .:: [orange]:::::::::::::::::::::::[/orange]
+  [orange].:::::::::::::::::::::::.[/orange] xx               .::xxxx [orange]:::::::::::::::::::::::[/orange]
+  [orange]:::::::::::::::::::::::::.[/orange]'xxx..        .::xxxxxxx [orange]::::::::::::::::::::'[/orange]
+  [orange]':::::::::::::::::::::::::[/orange] xxxxxxxxxxxxxxxxxxxxxxx [orange]:::::::::::::::::'[/orange]
+   [orange] ':::::::::::::::::::::::[/orange] xxxxxxxxxxxxxxxxxxxxxxx [orange]:::::::::::::::'[/orange]
+     [orange]   ':::::::::::::::::::[/orange]_xxxxxx::'''::xxxxxxxxxx [orange]'::::::::::::'[/orange]
+          [orange]   '':.::::::::::'[/orange]                      [orange]  `._'::::::''[/orange]
