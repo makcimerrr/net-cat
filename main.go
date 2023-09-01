@@ -107,7 +107,12 @@ func getUsername(conn net.Conn) string {
 
 	scanner := bufio.NewScanner(conn)
 	if scanner.Scan() {
-		return scanner.Text()
+		username := scanner.Text()
+		if username == "" {
+			conn.Write([]byte("\x1b[31;1m[ERROR]: Username cannot be empty\x1b[0m\n"))
+			return getUsername(conn) // Demander à nouveau le nom d'utilisateur
+		}
+		return username
 	}
 
 	return "unknown"
@@ -130,12 +135,21 @@ func notifyLeave(c *client) {
 }
 
 func sendMessage(sender *client, message string) {
-	if strings.TrimSpace(message) == "" {
-		return // Ignore empty messages
-	}
+	timeStamp := getTimeStamp() // Obtenir l'horodatage actuel
 
-	msg := fmt.Sprintf("\x1b[36m[%s][%s]: %s\x1b[0m\n", getTimeStamp(), sender.username, message)
+	if strings.TrimSpace(message) == "" {
+		// Si le message est vide, envoyer uniquement l'horodatage et le nom d'utilisateur à l'expéditeur
+		msg := fmt.Sprintf("\x1b[36m[%s][%s]:\x1b[0m\n", timeStamp, sender.username)
+		sender.writer.WriteString(msg)
+		sender.writer.Flush()
+		return // Ne pas envoyer de message vide aux autres clients
+	}
+	msg := fmt.Sprintf("\x1b[36m[%s][%s]: %s\x1b[0m\n", timeStamp, sender.username, message)
 	broadcastMessage(sender, msg)
+
+	// Afficher le message avec l'horodatage dans le terminal de l'expéditeur
+	sender.writer.WriteString(msg)
+	sender.writer.Flush()
 
 	clientsMu.Lock()
 	chatHistory = append(chatHistory, msg)
