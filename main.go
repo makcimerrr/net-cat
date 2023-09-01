@@ -10,9 +10,6 @@ import (
 	"strings"
 	"sync"
 	"time"
-
-	"github.com/atotto/clipboard"
-	"github.com/chzyer/readline"
 )
 
 type client struct {
@@ -52,15 +49,8 @@ func main() {
 
 	cmd := fmt.Sprintf("nc %s %d", ip, port)
 
-	clipboard.WriteAll(cmd) // Copier la commande dans le presse-papiers
-
-	rl, err := readline.New("> ")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer rl.Close()
-
-	log.Printf("Server started, listening on port %d, paste in terminal to connect", port)
+	log.Printf("Server started, listening on port %d", port)
+	log.Printf("To connect, execute: %s", cmd)
 
 	for {
 		conn, err := listener.Accept()
