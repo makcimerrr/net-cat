@@ -10,6 +10,9 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/atotto/clipboard"
+	"github.com/chzyer/readline"
 )
 
 type client struct {
@@ -36,13 +39,28 @@ func main() {
 		port = p
 	}
 
+	ip, err := getIPv4Address()
+	if err != nil {
+		log.Fatalf("Failed to get IPv4 address: %v", err)
+	}
+
 	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
 	if err != nil {
 		log.Fatal("Failed to start server:", err)
 	}
 	defer listener.Close()
 
-	log.Printf("Server started, listening on port %d", port)
+	cmd := fmt.Sprintf("nc %s %d", ip, port)
+
+	clipboard.WriteAll(cmd) // Copier la commande dans le presse-papiers
+
+	rl, err := readline.New("> ")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer rl.Close()
+
+	log.Printf("Server started, listening on port %d, paste in terminal to connect", port)
 
 	for {
 		conn, err := listener.Accept()
@@ -60,6 +78,21 @@ func main() {
 		activeClients++
 		go handleConnection(conn)
 	}
+}
+
+func getIPv4Address() (string, error) {
+	addrs, err := net.InterfaceAddrs()
+	if err != nil {
+		return "", err
+	}
+
+	for _, addr := range addrs {
+		if ipnet, ok := addr.(*net.IPNet); ok && !ipnet.IP.IsLoopback() && ipnet.IP.To4() != nil {
+			return ipnet.IP.String(), nil
+		}
+	}
+
+	return "", fmt.Errorf("no ipv4 address found")
 }
 
 func handleConnection(conn net.Conn) {
