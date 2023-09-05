@@ -31,9 +31,13 @@ func main() {
 	if len(os.Args) > 1 {
 		p, err := strconv.Atoi(os.Args[1])
 		if err != nil {
-			log.Fatalf("[USAGE]: %s $port", os.Args[0])
+			log.Fatalf("[USAGE]: ./TCPChat $port")
 		}
 		port = p
+	}
+
+	if len(os.Args) > 2 {
+		log.Fatalf("[USAGE]: ./TCPChat $port")
 	}
 
 	ip, err := getIPv4Address()
